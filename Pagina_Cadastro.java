@@ -1,12 +1,20 @@
 
 package VIEW;
 
+import com.classes.clientes.Cliente;
+import com.mysql.conexion.ClienteDao.ClienteDao;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+import java.sql.SQLException;
 
 public class Pagina_Cadastro extends javax.swing.JFrame {
-
+    
+    Cliente c = new Cliente();
+    ClienteDao cDao = new ClienteDao();
+    
     public Pagina_Cadastro() {
         initComponents();
                
@@ -337,11 +345,114 @@ public class Pagina_Cadastro extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
+    
+     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        loginUsuario();
+        
+        PaginaInicial pg = new PaginaInicial();
+                
+        if(Cliente.getId() != 0) {
+            pg.setVisible(true);
+                    
+            dispose();
+        }else{
+            c.setEmail("");
+            c.setSenha("");
+      
+        }
+    }                                        
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        salvaDados();
+    } 
+    
+    private void limparCampos(){
+        jTextField2.setText("");
+        jPasswordField2.setText("");
+        jPasswordField3.setText("");
+    }
+    
+    private void LimpaCamp(){
+        jTextField1.setText("");
+        jPasswordField1.setText("");
+    }
+    
+    private void loginUsuario(){
+        if (validaLog()){
+           jLabel14.setForeground(Color.red);
+           jLabel14.setText("Campos não preenchidos"); 
+        } else {
+            char[] pws = jPasswordField1.getPassword();
+            String senha = new String(pws);
+            try {
+                c.setEmail(jTextField1.getText());
+                c.setSenha(senha);
+                
+                cDao.fazerLogin(c);
+                                
+                LimpaCamp();
+                
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Erro ao fazer login: " + e.toString());
+            }
+        }
+    }
+    
+    private void salvaDados(){
+        if (validaCad()) {
+           jLabel13.setForeground(Color.red);
+           jLabel13.setText("Campos não preenchidos");      
+        } else {
+            char[] p1 = jPasswordField2.getPassword();
+            char[] p2 = jPasswordField3.getPassword();
+            if (validaSenhaCad(p1 , p2)){
+                jLabel13.setForeground(Color.BLUE);
+                jLabel13.setText("Criando conta...");
+                String senha = new String(p2);
+                try{
+                    c.setEmail(jTextField2.getText());
+                    c.setSenha(senha);
+                    
+                    cDao.criarRegistro(c);
+                    
+                    limparCampos();
+                    
+                } catch (SQLException e){
+                    JOptionPane.showMessageDialog(null, "Erro ao Salvar os Dados: " + e.toString());
+                }
+            }else{
+                jLabel13.setForeground(Color.red);
+                jLabel13.setText("Senhas diferentes");
+            }
+            
+        }
+        
+    }
+    
+    private boolean validaCad() {
+        return jTextField2.getText().isEmpty()
+                || String.valueOf(jPasswordField3.getPassword()).isEmpty()
+                || String.valueOf(jPasswordField2.getPassword()).isEmpty();
+    }
+    
+    private boolean validaLog(){
+        return jTextField1.getText().isEmpty()
+                || String.valueOf(jPasswordField1.getPassword()).isEmpty();
+    }
+    
+   private boolean validaSenhaCad(char[] password1, char[] password2) {
+        if (password1.length != password2.length) {
+            return false;
+        }
 
+        for (int i = 0; i < password1.length; i++) {
+            if (password1[i] != password2[i]) {
+                return false;
+            }
+        }
+
+        return true;
+    }
     
     public static void main(String args[]) {
         
