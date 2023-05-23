@@ -357,11 +357,8 @@ public class PaginaInicial extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                         
         //trocar para o powerBI quando estiver pronto!
-        try{
-            Desktop.getDesktop().browse(new URL("http://www.google.com.br").toURI());
-        }
-        catch(Exception e)
-        {}
+        verificaResp2();
+        
     }                                        
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {                                         
@@ -410,6 +407,25 @@ public class PaginaInicial extends javax.swing.JFrame {
         } catch (SQLException e){
             JOptionPane.showMessageDialog(null, "Erro: " + e.toString());
                     
+        }
+    }
+    
+    private void verificaResp2(){
+        try{
+            boolean s = rDao.verificaRespostas(c);
+            if (s == true){
+                avisoPegadaCar pg = new avisoPegadaCar();
+                pg.setVisible(true);
+                dispose();
+            }else{
+                //trocar pro powerBIBIBIS
+                try{
+                    Desktop.getDesktop().browse(new URL("http://www.google.com.br").toURI());
+                }catch(Exception e)
+                {}
+            }
+        }catch (SQLException e){
+            JOptionPane.showMessageDialog(null, "Erro: " + e.toString());       
         }
     }
     
