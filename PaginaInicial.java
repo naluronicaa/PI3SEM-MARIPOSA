@@ -420,7 +420,7 @@ public class PaginaInicial extends javax.swing.JFrame {
             }else{
                 //trocar pro powerBIBIBIS
                 try{
-                    Desktop.getDesktop().browse(new URL("http://www.google.com.br").toURI());
+                    Desktop.getDesktop().browse(new URL("https://app.powerbi.com/links/QRMbaxdH2y?ctid=c49e1939-4b53-4738-bb64-41fb2990e41c&pbi_source=linkShare").toURI());
                 }catch(Exception e)
                 {}
             }
