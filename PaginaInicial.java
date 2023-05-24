@@ -413,7 +413,7 @@ public class PaginaInicial extends javax.swing.JFrame {
     private void verificaResp2(){
         try{
             boolean s = rDao.verificaRespostas(c);
-            if (s == true){
+            if (s == false){
                 avisoPegadaCar pg = new avisoPegadaCar();
                 pg.setVisible(true);
                 dispose();
