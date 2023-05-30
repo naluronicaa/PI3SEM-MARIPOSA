@@ -1,0 +1,8 @@
+Olá!
+
+Esse projeto foi desenvolvido com o objetivo de englobar todas as matérias do terceiro semestre de Sistema de Informação do IMT.
+Por ser desenvolvido em um ambiente didático o projeto não atua de forma extremamente eficiênte por conta de limitações de atualização de dados do Power BI.
+
+Para rodar a aplicação é necessário baixar o executavel Mariposa_PI3SM, depois é necessário ter instalado o 
+MySQL WorkBench e criar um novo banco de dados com o nome "dbmariposa" e configurar o usuário como root e a senha como " *uaAOYF45dg1 " e depois deve-se copiar e colar 
+todo o código do arquivo sql deste repositório. Após isso pode executar o programa Mariposa_PI3SM.
